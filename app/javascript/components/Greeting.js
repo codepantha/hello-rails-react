@@ -1,13 +1,19 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getMessage } from "../redux/message";
 
-const Greeting = ({ greeting }) => {
+const Greeting = () => {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getMessage())
+  }, [dispatch])
+  
+  const { message: { message } } = useSelector(state => state.messagesReducer)
+
   return (
-    <p>{greeting}</p>
+    <p>{message}</p>
   );
 }
 
-Greeting.propTypes = {
-  greeting: PropTypes.string
-};
 export default Greeting
